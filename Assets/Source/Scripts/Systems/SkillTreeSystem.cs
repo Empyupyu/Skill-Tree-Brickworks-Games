@@ -7,7 +7,7 @@ public sealed class SkillTreeSystem : GameSystem
     public event Action<SkillSlot> OnSlotActivation;
     public event Action<SkillSlot> OnSkillRemove;
 
-    private readonly List<SkillSlot> _visitedSlots = new ();
+    private readonly List<SkillSlot> _visitedSkillSlots = new ();
     private readonly List<SkillSlot> _activeSlots = new ();
     private SkillSlot _selectedSkillSlot;
 
@@ -20,7 +20,7 @@ public sealed class SkillTreeSystem : GameSystem
     {
         if (slot.IsRootSkillSlot) return;
 
-        ResetVisitedSlots();
+        ResetVisitedSkillSlots();
 
         if (!HasPathToRoot(slot.ConnectedSlots, slot)) return;
 
@@ -52,12 +52,12 @@ public sealed class SkillTreeSystem : GameSystem
         return _selectedSkillSlot != null && !_selectedSkillSlot.Active && haveEnoughPoints;
     }
 
-    public bool CheckOnCanRemoveSkillSlot()
+    public bool CanDeactivateSkillSlot()
     {
         if (!_selectedSkillSlot.Active) return false;
         _selectedSkillSlot.RemoveMark = true;
 
-        ResetVisitedSlots();
+        ResetVisitedSkillSlots();
 
         foreach (var connectedSlot in _selectedSkillSlot.ConnectedSlots)
         {
@@ -85,22 +85,7 @@ public sealed class SkillTreeSystem : GameSystem
         return true;
     }
 
-    public void RemoveSelectedSkillSlot()
-    {
-        RemoveSkill(_selectedSkillSlot);
-    }
-
-    public void RemoveAllSkillSlots()
-    {
-        for (int i = 0; i < _activeSlots.Count;)
-        {
-            var skill = _activeSlots[i];
-            RemoveSkill(skill);
-        }
-        _selectedSkillSlot = null;
-    }
-
-    private void RemoveSkill(SkillSlot removeSkill)
+    public void DeactivateSelectedSkillSlot(SkillSlot removeSkill)
     {
         removeSkill.Active = false;
 
@@ -122,12 +107,23 @@ public sealed class SkillTreeSystem : GameSystem
         OnSkillRemove?.Invoke(removeSkill);
     }
 
+    public void DeactivateAllSkillSlots()
+    {
+        for (int i = 0; i < _activeSlots.Count;)
+        {
+            var slot = _activeSlots[i];
+
+            DeactivateSelectedSkillSlot(slot);
+        }
+        _selectedSkillSlot = null;
+    }
+
     private bool HasPathToRoot(List<SkillSlot> connectSlots, SkillSlot currentSlot)
     {
         if (currentSlot.IsRootSkillSlot) return true;
-        if (_visitedSlots.Contains(currentSlot)) return false;
+        if (_visitedSkillSlots.Contains(currentSlot)) return false;
 
-        _visitedSlots.Add(currentSlot);
+        _visitedSkillSlots.Add(currentSlot);
 
         foreach (var nearSlot in connectSlots)
         {
@@ -148,9 +144,9 @@ public sealed class SkillTreeSystem : GameSystem
         return false;
     }
 
-    private void ResetVisitedSlots()
+    private void ResetVisitedSkillSlots()
     {
-        _visitedSlots.Clear();
+        _visitedSkillSlots.Clear();
     }
 
     private void ChangeSkillPoints(int value)

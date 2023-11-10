@@ -824,12 +824,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7588476cbd4a64cae5b3198c334d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PointCounterText>k__BackingField: {fileID: 1390028209}
+  <SkillPointCounterText>k__BackingField: {fileID: 1390028209}
   <SkillPointPriceText>k__BackingField: {fileID: 1190582178}
-  <AddPointButton>k__BackingField: {fileID: 1352583212}
-  <AddSkillButton>k__BackingField: {fileID: 738594911}
-  <RemoveSkillButton>k__BackingField: {fileID: 380260592}
-  <RemoveAllSkillButton>k__BackingField: {fileID: 886361064}
+  <AddSkillPointButton>k__BackingField: {fileID: 1352583212}
+  <ActivateSkillSlotButton>k__BackingField: {fileID: 738594911}
+  <DeactivateSkillSlotButton>k__BackingField: {fileID: 380260592}
+  <DeactivateAllSkillSlotsButton>k__BackingField: {fileID: 886361064}
   <SkillSlots>k__BackingField:
   - {fileID: 3191806599704499272}
   - {fileID: 8530318152298292306}
@@ -998,7 +998,7 @@ GameObject:
   - component: {fileID: 380260593}
   - component: {fileID: 380260592}
   m_Layer: 5
-  m_Name: Remove Skill Button
+  m_Name: Deactivate Skill Slot Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1693,7 +1693,7 @@ GameObject:
   - component: {fileID: 738594912}
   - component: {fileID: 738594911}
   m_Layer: 5
-  m_Name: Activate Skill Button
+  m_Name: Activate Skill Slot Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1861,7 +1861,7 @@ GameObject:
   - component: {fileID: 886361065}
   - component: {fileID: 886361064}
   m_Layer: 5
-  m_Name: Reset All Button
+  m_Name: Deactivate All Skill Slots Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2809,7 +2809,7 @@ GameObject:
   - component: {fileID: 1352583213}
   - component: {fileID: 1352583212}
   m_Layer: 5
-  m_Name: Get Point Button
+  m_Name: Add Skill Point Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
