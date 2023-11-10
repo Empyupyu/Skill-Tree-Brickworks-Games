@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-public class SkillTreeSystem : GameSystem
+public sealed class SkillTreeSystem : GameSystem
 {
     public event Action<SkillSlot> OnSkillSlotSelected;
     public event Action<SkillSlot> OnSlotActivation;
